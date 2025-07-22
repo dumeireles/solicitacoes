@@ -13,15 +13,44 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="theme-color" content="#004aad" />
+
+  <!-- CSS inline básico -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #141414;
+      color: #000000;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    a {
+      color: #427740;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <h1>Portal de Solicitações</h1>
-  <p>Bem-vindo! Selecione abaixo:</p>
+  <p>Bem-vindo! Clique abaixo para continuar:</p>
   <a href="https://amazfishing.typeform.com/solicitacoes" target="_blank" rel="noopener noreferrer">
     Abrir formulário
   </a>
 
-  <!-- Script de redirecionamento para quando rodar como PWA -->
+  <!-- Redirecionamento automático se estiver como app instalado -->
   <script>
     const isStandalone =
       window.matchMedia('(display-mode: standalone)').matches ||
