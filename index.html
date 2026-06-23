@@ -4,16 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal de Solicitações</title>
-
   <!-- Manifesto e ícones -->
   <link rel="manifest" href="/manifest.json" />
   <link rel="apple-touch-icon" href="/icons/icon-180.png" />
-
   <!-- iOS configs -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="theme-color" content="#004aad" />
-
   <!-- CSS inline básico -->
   <style>
     body {
@@ -22,15 +19,28 @@
       background-color: #141414;
       color: #ffffff;
       font-family: sans-serif;
-      font-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      text-align: center;
+    }
+    /* Tela de instruções (instalação do PWA) */
+    #instrucoes {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      text-align: center;
+      width: 100%;
     }
-
+    /* Container do formulário embedado */
+    #form-container {
+      display: none;
+      width: 100%;
+      height: 100vh;
+    }
     a {
       color: #141414;
       font-weight: regular;
@@ -38,32 +48,47 @@
       font-size: 1.2rem;
       margin-top: 1rem;
     }
-
     a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>Portal de Solicitações</h1>
-  <h3><img src="icons/zoio.png" alt="zaltana" width="64" height="64" />  <img src="icons/eco.png" alt="zaltana" width="64" height="64" /></h3>
-  <h2>Siga as instruções abaixo<br>↓↓↓</h2>
-  <p>1. Clique em "Compartilhar" <img src="/icons/compartilhar-36.png" alt="compartilhar" width="24" height="24" /><br><br>2. Em seguida, "adicionar à tela inicial" <img src="/icons/add-36.png" alt="add_to_home_screen" width="24" height="24" /><br><br>3. Salve o ícone e abra-o na tela inicial</p>
-   <!-- <video width="180" height="360" controls muted playsinline><source src="videos/instucoes.mp4" type="video/mp4"></video> -->
-  <!-- <video width="180" height="360" autoplay muted loop playsinline><source src="videos/instucoes.webm" type="video/webm"></video> -->
-  <a href="https://amazfishing.typeform.com/solicitacoes" target="_blank" rel="noopener noreferrer">
-    _
-  </a>
 
-  <!-- Redirecionamento automático se estiver como app instalado -->
+  <!-- Tela 1: instruções de instalação (aparece no navegador normal) -->
+  <div id="instrucoes">
+    <h1>Portal de Solicitações</h1>
+    <h3>
+      <img src="icons/zoio.png" alt="zaltana" width="64" height="64" />
+      <img src="icons/eco.png" alt="zaltana" width="64" height="64" />
+    </h3>
+    <h2>Siga as instruções abaixo<br>↓↓↓</h2>
+    <p>
+      1. Clique em "Compartilhar" <img src="/icons/compartilhar-36.png" alt="compartilhar" width="24" height="24" /><br><br>
+      2. Em seguida, "adicionar à tela inicial" <img src="/icons/add-36.png" alt="add_to_home_screen" width="24" height="24" /><br><br>
+      3. Salve o ícone e abra-o na tela inicial
+    </p>
+  </div>
+
+  <!-- Tela 2: formulário embedado (aparece quando o app é aberto em modo standalone) -->
+  <div id="form-container">
+    <div data-tf-live="01KVTAKC6FPYCVGS983K2ABWJ1" data-tf-inline-on-mobile style="width:100%; height:100%;"></div>
+  </div>
+
+  <!-- Script do Typeform -->
+  <script src="//embed.typeform.com/next/embed.js"></script>
+
+  <!-- Lógica: se estiver instalado como app (standalone), mostra o form. Senão, mostra instruções -->
   <script>
     const isStandalone =
       window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator.standalone === true;
 
     if (isStandalone) {
-      window.location.href = "https://amazfishing.typeform.com/solicitacoes";
+      document.getElementById('instrucoes').style.display = 'none';
+      document.getElementById('form-container').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
